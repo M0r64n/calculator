@@ -39,11 +39,11 @@ class OperationProvider
      * @param int $operation_key
      * @param float $first_operand
      * @param float $second_operand
-     * @return string
+     * @return IOperation
      */
     public function getOperation(int $operation_key, float $first_operand, float $second_operand): IOperation
     {
-        return new $this->operations[$operation_key]($first_operand, $second_operand)
-            ?? new Operations\NullOperation($first_operand, $second_operand);
+        $operation = $this->operations[$operation_key] ?? Operations\NullOperation::class;
+        return new $operation($first_operand, $second_operand);
     }
 }
