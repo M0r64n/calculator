@@ -25,7 +25,8 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $model = new CalculatorForm();
-        $result = '';
+        $result = 0;
+        $error = '';
 
         if($model->load(Yii::$app->request->post())) {
             if($model->validate()) {
@@ -40,10 +41,14 @@ class SiteController extends Controller
                 try {
                     $result = $operation->execute();
                 } catch (Exception $e) {
-                    $result = $e->getMessage();
+                    $error = $e->getMessage();
                 }
             }
         }
-        return $this->render('index', ['model' => $model, 'result' => $result]);
+        return $this->render('index', [
+            'model' => $model,
+            'result' => $result,
+            'error' => $error,
+        ]);
     }
 }

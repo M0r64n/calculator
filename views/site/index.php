@@ -3,6 +3,7 @@
 /* @var $this yii\web\View */
 /* @var $model app\Models\CalculatorForm */
 /* @var $result float */
+/* @var $error string */
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -31,7 +32,11 @@ $this->title = 'Calculator';
         </div>
     </div>
 
-    <?php if ($result): ?>
+    <?php if ($error): ?>
+
+        <span><?= $error ?></span>
+
+    <?php elseif ($result): ?>
 
         <span><?= "{$model->first_operand} "
             . ($model->operations[$model->operation_key] ?? 'and')
